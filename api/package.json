@@ -1,0 +1,16 @@
+{
+  "name": "pragma-brewery-api",
+  "version": "1.0.0",
+  "description": "This API provides the containers and their temperature in the refrigerated truck and notifies the client when temperatures fall outside of the acceptable range.",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --es-module-specifier-resolution=node src/index.js"
+  },
+  "author": "Bruno Arsene <arsene.bruno@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.14.1",
+    "graphql": "^15.0.0"
+  }
+}
