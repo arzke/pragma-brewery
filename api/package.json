@@ -13,5 +13,8 @@
     "apollo-server": "^2.14.1",
     "graphql": "^15.0.0",
     "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "standard": "^14.3.4"
   }
 }
