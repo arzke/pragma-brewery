@@ -1,4 +1,7 @@
 import fetch from 'node-fetch'
+import * as apollo from 'apollo-server'
+
+const { ApolloError } = apollo
 
 export const getTemperature = async (containerId) => {
   try {
@@ -7,8 +10,6 @@ export const getTemperature = async (containerId) => {
 
     return temperature
   } catch (error) {
-    console.error('Error while fetching temperature from API', containerId, error)
-
-    return null
+    throw new ApolloError('Error while fetching temperature from API')
   }
 }

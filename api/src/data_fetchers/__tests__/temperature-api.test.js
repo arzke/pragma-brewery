@@ -1,4 +1,4 @@
-import { getTemperature } from '../temperature-apii'
+import { getTemperature } from '../temperature-api'
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import fetch from 'node-fetch'
 
@@ -23,15 +23,8 @@ describe('getTemperature()', () => {
       fetch.mockRejectedValue(error)
     })
 
-    test('it returns null', async () => {
-      expect(await getTemperature('foo')).toBeNull()
-    })
-
-    test('it logs an error', async () => {
-      const consoleErrorSpy = jest.spyOn(console, 'error')
-      await getTemperature('foo')
-
-      expect(consoleErrorSpy).toHaveBeenCalledWith('Error while fetching temperature from API', 'foo', error)
+    test('it throws an error', async () => {
+      expect(async () => await getTemperature('foo')).rejects.toBe(new Error('Error while fetching temperature from API'))
     })
   })
 
@@ -42,15 +35,8 @@ describe('getTemperature()', () => {
       })
     })
 
-    test('it returns null', async () => {
-      expect(await getTemperature('foo')).toBeNull()
-    })
-
-    test('it logs an error', async () => {
-      const consoleErrorSpy = jest.spyOn(console, 'error')
-      await getTemperature('foo')
-
-      expect(consoleErrorSpy).toHaveBeenCalledWith('Error while fetching temperature from API', 'foo', new TypeError('data.json is not a function'))
+    test('it throws an error', async () => {
+      expect(async () => await getTemperature('foo')).rejects.toBe(new Error('Error while fetching temperature from API'))
     })
   })
 
