@@ -15,5 +15,6 @@ type Container {
 
 type Query {
   containers: [Container]
+  temperature(containerId: ID!): Float 
 }
 `
