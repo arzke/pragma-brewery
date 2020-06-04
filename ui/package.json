@@ -9,6 +9,7 @@
   "author": "Bruno Arsene <arsene.bruno@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "jest": "^26.0.1",
