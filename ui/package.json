@@ -4,6 +4,7 @@
   "description": "The UI displays the containers and their temperature in the refrigerated truck and notifies the user when temperatures fall outside of the acceptable range.",
   "main": "index.js",
   "scripts": {
+    "start": "parcel index.html",
     "test": "jest"
   },
   "author": "Bruno Arsene <arsene.bruno@gmail.com>",
