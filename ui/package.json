@@ -11,9 +11,9 @@
   "author": "Bruno Arsene <arsene.bruno@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-react": "^7.10.1",
     "jest": "^26.0.1",
     "parcel-bundler": "^1.12.4",
     "standard": "^14.3.4"
