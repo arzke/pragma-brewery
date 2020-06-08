@@ -6,7 +6,7 @@ import Header from './components/Header'
 import '../static/app.scss'
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000'
+  uri: `http://${window.location.hostname}:4000`
 })
 
 const App = () => (
