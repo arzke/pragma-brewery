@@ -8,7 +8,7 @@ const Container = ({ id, content: { name, minTemperature, maxTemperature } }) =>
       <h3>Container #{id}</h3>
       <TemperatureData containerId={id}>
         {(temperature) => (
-          <Temperature temperature={temperature} minTemperature={minTemperature} maxTemperature={maxTemperature} />
+          <Temperature containerId={id} temperature={temperature} minTemperature={minTemperature} maxTemperature={maxTemperature} />
         )}
       </TemperatureData>
       <span className='temperature-range'>{minTemperature}-{maxTemperature}°C</span>
