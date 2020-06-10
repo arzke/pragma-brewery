@@ -12,7 +12,51 @@ body {
         background: #333;
         color: #E7DACB;
         height: 50px;
+        display: flex;
+        
+        .navbar-brand {
+            flex: 1;
+        }
 
+        .notifications {
+            line-height: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            .notifications-panel-btn {
+                padding-right: 2em;
+            }
+            .no-notification {
+                color: #77dd77;
+            }
+            .has-notifications {
+                cursor: pointer;
+                color: #ffb347;
+            }
+            .notifications-list {
+                display: block;
+                z-index: 100;
+                padding: 1em;
+                font-size: 0.8em;
+                text-align: left;
+                background: #333;
+
+                li {
+                    display: block;
+                    text-indent: 0;
+                }
+                .notification.sensor-down-notification {
+                    color: #ffb347;   
+                }
+                .notification.container-too-hot-notification {
+                    color: #ff6961;  
+                }
+                .notification.container-too-cold-notification {
+                    color: #45b6fe;
+                }
+            }
+        }
     }
     a {
         color: #efefef;
