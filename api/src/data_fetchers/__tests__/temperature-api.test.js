@@ -6,6 +6,8 @@ jest.mock('node-fetch')
 
 describe('getTemperature()', () => {
   test('it calls the temperature API with the container name', () => {
+    fetch.mockReturnValue(new Promise(() => { }, () => { }))
+
     getTemperature('foo')
     expect(fetch).toHaveBeenCalledWith('https://temperature-sensor-service.herokuapp.com/sensor/foo')
   })
@@ -24,7 +26,7 @@ describe('getTemperature()', () => {
     })
 
     test('it throws an error', async () => {
-      expect(async () => await getTemperature('foo')).rejects.toBe(new Error('Error while fetching temperature from API'))
+      expect(async () => await getTemperature('foo')).rejects.toThrow(new Error('Error while fetching temperature from API'))
     })
   })
 
@@ -36,7 +38,7 @@ describe('getTemperature()', () => {
     })
 
     test('it throws an error', async () => {
-      expect(async () => await getTemperature('foo')).rejects.toBe(new Error('Error while fetching temperature from API'))
+      expect(async () => await getTemperature('foo')).rejects.toThrow(new Error('Error while fetching temperature from API'))
     })
   })
 
