@@ -4,8 +4,42 @@ import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { shallow } from 'enzyme'
 import TemperatureData from '../TemperatureData'
 import { getTemperature } from '../../../graphql/queries'
+import getNotifier from '../../../helpers/notifications'
 
 jest.mock('@apollo/react-hooks')
+jest.mock('../../../helpers/notifications')
+
+let notifications
+let setNotificationsMock
+
+let notifyMock
+let deleteNotificationsMock
+
+beforeEach(() => {
+  notifications = []
+  setNotificationsMock = jest.fn()
+
+  const useContextMock = jest.fn(() => ({
+    notifications,
+    setNotifications: setNotificationsMock
+  }))
+
+  jest.spyOn(React, 'useContext')
+    .mockImplementation(useContextMock)
+
+  jest.spyOn(React, 'useEffect')
+    .mockImplementation(f => f())
+})
+
+beforeEach(() => {
+  notifyMock = jest.fn()
+  deleteNotificationsMock = jest.fn()
+
+  getNotifier.mockReturnValue({
+    notify: notifyMock,
+    deleteNotifications: deleteNotificationsMock
+  })
+})
 
 test('it calls the useQuery hook with the container id and a poll interval', () => {
   useQuery.mockReturnValue({
@@ -22,18 +56,37 @@ test('it calls the useQuery hook with the container id and a poll interval', () 
   })
 })
 
+test('it calls the notifier with the notifications from the context', () => {
+  shallow(<TemperatureData containerId='foo' />)
+  expect(getNotifier).toHaveBeenCalledWith(notifications, setNotificationsMock)
+})
+
 describe('when loading is true', () => {
+  let temperatureData
+
   beforeEach(() => {
     useQuery.mockReturnValue({
       loading: true
     })
+
+    temperatureData = shallow(<TemperatureData containerId='foo' />)
   })
 
   test('it displays a message saying the temperature is being read', () => {
-    const temperatureData = shallow(<TemperatureData containerId='foo' />)
-
     expect(temperatureData).toContainMatchingElement('.reading-sensor')
     expect(temperatureData.find('.reading-sensor')).toHaveText('Reading temperature from sensor...')
+  })
+
+  test('it does not call the notify function', () => {
+    shallow(<TemperatureData containerId='foo' />)
+
+    expect(notifyMock).not.toHaveBeenCalled()
+  })
+
+  test('it calls the deleteNotifications function', () => {
+    shallow(<TemperatureData containerId='foo' />)
+
+    expect(deleteNotificationsMock).toHaveBeenCalledWith('foo')
   })
 })
 
@@ -49,11 +102,28 @@ describe('when loading is false and error is not null', () => {
     const temperatureData = shallow(<TemperatureData containerId='foo' />)
 
     expect(temperatureData).toContainMatchingElement('.sensor-down')
-    expect(temperatureData.find('.sensor-down')).toHaveText('Temperature sensor seems to be down :(')
+    expect(temperatureData.find('.sensor-down')).toHaveText('⚠ Temperature sensor is not responding')
+  })
+
+  test('it calls the notify function with a sensor down notification', () => {
+    shallow(<TemperatureData containerId='foo' />)
+
+    expect(notifyMock).toHaveBeenCalledWith({
+      type: 'TEMPERATURE_SENSOR_IS_DOWN',
+      id: 'foo'
+    })
+  })
+
+  test('it does not call the deleteNotifications function', () => {
+    shallow(<TemperatureData containerId='foo' />)
+
+    expect(deleteNotificationsMock).not.toHaveBeenCalled()
   })
 })
 
 describe('when loading is false and error is null and temperature is returned in the data', () => {
+  let temperatureData
+
   beforeEach(() => {
     useQuery.mockReturnValue({
       loading: false,
@@ -62,16 +132,24 @@ describe('when loading is false and error is null and temperature is returned in
         temperature: 6.0
       }
     })
-  })
 
-  test('it passes the temperature to the children', () => {
-    const temperatureData = shallow((
+    temperatureData = shallow((
       <TemperatureData containerId='foo'>
         {(temperature) => <div className='temperature'>{temperature}°C</div>}
       </TemperatureData>
     ))
+  })
 
+  test('it passes the temperature to the children', () => {
     expect(temperatureData).toContainMatchingElement('.current-temperature')
     expect(temperatureData.find('.temperature')).toHaveText('6°C')
+  })
+
+  test('it does not call the notify function', () => {
+    expect(notifyMock).not.toHaveBeenCalled()
+  })
+
+  test('it calls the deleteNotifications function', () => {
+    expect(deleteNotificationsMock).toHaveBeenCalledWith('foo')
   })
 })
