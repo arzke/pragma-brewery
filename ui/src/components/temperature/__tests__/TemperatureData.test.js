@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { shallow } from 'enzyme'
 import TemperatureData from '../TemperatureData'
-import { getTemperature } from '../../graphql/queries'
+import { getTemperature } from '../../../graphql/queries'
 
 jest.mock('@apollo/react-hooks')
 

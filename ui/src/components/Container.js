@@ -1,6 +1,6 @@
 import React from 'react'
-import TemperatureData from './TemperatureData'
-import Temperature from './Temperature'
+import TemperatureData from '../temperature/TemperatureData'
+import Temperature from '../temperature/Temperature'
 
 const Container = ({ id, content: { name, minTemperature, maxTemperature } }) => {
   return (

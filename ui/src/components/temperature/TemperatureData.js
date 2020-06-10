@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
-import { getTemperature } from '../graphql/queries'
+import { getTemperature } from '../../graphql/queries'
 
 const TemperatureData = ({ containerId, children }) => {
   const { loading: isReadingSensor, error, data } = useQuery(getTemperature, {
@@ -15,7 +15,7 @@ const TemperatureData = ({ containerId, children }) => {
   }
 
   if (error) {
-    return <span className='sensor-down'>Temperature sensor seems to be down :(</span>
+    return <span className='sensor-down'>⚠ Temperature sensor is not responding</span>
   }
 
   return <span className='current-temperature'>{children(data.temperature)}</span>
