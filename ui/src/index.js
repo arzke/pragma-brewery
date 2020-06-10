@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 import Header from './components/Header'
 import ContainersData from './components/containers/ContainersData'
 import '../static/app.scss'
+import { NotificationsProvider } from './context/NotificationsContext'
 
 const client = new ApolloClient({
   uri: `http://${window.location.hostname}:4000`
@@ -12,10 +13,10 @@ const client = new ApolloClient({
 
 const App = () => (
   <ApolloProvider client={client}>
-    <div>
+    <NotificationsProvider>
       <Header />
       <ContainersData />
-    </div>
+    </NotificationsProvider>
   </ApolloProvider>
 )
 
