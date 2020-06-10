@@ -3,7 +3,7 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Header from './components/Header'
-import ContainersData from './components/ContainersData'
+import ContainersData from './components/containers/ContainersData'
 import '../static/app.scss'
 
 const client = new ApolloClient({

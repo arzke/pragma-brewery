@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
-import { getContainers } from '../graphql/queries'
+import { getContainers } from '../../graphql/queries'
 import Containers from './Containers'
 
 const ContainersData = () => {
