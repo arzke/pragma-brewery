@@ -1,6 +1,6 @@
 import { beers } from './beers'
 
-const containersToCreate = 21
+const containersToCreate = parseInt(process.env.CONTAINERS_TO_CREATE) || 21
 
 const createContainers = (containersToCreate) => {
   return [...Array(containersToCreate)]
