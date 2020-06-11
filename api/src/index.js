@@ -1,3 +1,4 @@
+import './startup.js'
 import apollo from 'apollo-server'
 import { resolvers } from './resolvers/index'
 import { typeDefs } from './typeDefs'
